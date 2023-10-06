@@ -1,0 +1,92 @@
+@model AnaeLogiciel.Models.Projet
+
+@{
+    ViewData["Title"] = "Create";
+    List<Bailleur> liste = ViewData["listebailleur"] as List<Bailleur>;
+    List<Composant> listec = ViewData["listecomposant"] as List<Composant>;
+    List<Devise> listed = ViewData["listedevise"] as List<Devise>;
+}
+
+<p style="color: red;">@ViewBag.messageerreur</p>
+
+<div class="container mt-5">
+    <h2>Create a New Project</h2>
+    <form method="post" action="/Projet/CreateProjet">
+        <div class="form-group">
+            <label for="nom">Nom</label>
+            <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom">
+        </div>
+        
+        <div class="form-group">
+            <label for="sigle">Sigle</label>
+            <input type="text" class="form-control" id="sigle" name="sigle" placeholder="Sigle">
+        </div>
+        
+        <div class="form-group">
+            <label for="reference">Reference</label>
+            <input type="number" class="form-control" id="reference" name="reference" placeholder="Reference">
+        </div>
+
+        <div class="form-group">
+            <label for="details">Détails</label>
+            <input type="text" class="form-control" id="details" name="details" placeholder="Détails">
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="datedebut">Date Début</label>
+                <input type="date" class="form-control" id="datedebut" name="datedebut">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="datefin">Date Fin</label>
+                <input type="date" class="form-control" id="datefin" name="datefin">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div style="display: inline-block; width: 30%;">
+                <label for="budget">Budget</label>
+                <input type="text" class="form-control" id="budget" name="budget" placeholder="Budget">
+            </div>
+            <div style="display: inline-block; width: 30%;">
+                <label for="iddevise">Devise</label>
+                <select name="iddevise" id="iddevise" class="form-control">
+                    @foreach (var v in listed)
+                    {
+                        <option value="@v.Id">@v.Nom</option>   
+                    }
+                </select>
+            </div>
+            <div style="display: inline-block; width: 30%;">
+                <label for="valeur">Valeur</label>
+                <input type="text" class="form-control" id="valeur" name="valeur" placeholder="Valeur">
+            </div>
+        </div>
+
+        
+
+        <div class="form-group">
+            <label for="idbailleur">Choisir Bailleur</label>
+            <select class="form-control" id="idbailleur" name="idbailleur">
+                @foreach (var v in liste)
+                {
+                    <option value="@v.Id">@v.Nom</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Choisir Composants</label>
+            <br>
+            @foreach (var v in listec)
+            {
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="idcomposant" value="@v.Id" id="composant-@v.Id">
+                    <label class="form-check-label" for="composant-@v.Id">@v.Nom</label>
+                </div>
+            }
+        </div>
+
+        <button type="submit" class="btn btn-primary" name="inserer">Créer</button>
+    </form>
+</div>

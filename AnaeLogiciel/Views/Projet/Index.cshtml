@@ -1,0 +1,56 @@
+@model IEnumerable<AnaeLogiciel.Models.Projet>
+
+@{
+    ViewData["Title"] = "Index";
+    List<Projet> liste = new List<Projet>();
+    if (ViewData["listeprojet"] != null)
+    {
+        liste = ViewData["listeprojet"] as List<Projet>;
+    }
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<p style="color: red;">@ViewBag.messageerreur</p>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Sigle</th>
+        <th>Debut Prevision</th>
+        <th>Fin Prevision</th>
+        <th>Avancement</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in liste)
+        {
+            <tr>
+                <td>@v.Sigle</td>
+                <td>@v.DateDebutPrevision</td>
+                <td>@v.DateFinPrevision</td>
+                <td>
+                    <div class="progress">
+                      <div class="progress-bar bg-success" role="progressbar" style="width:@v.Avancement %;" aria-valuenow="@v.Avancement" aria-valuemin="0" aria-valuemax="100">
+                        @v.Avancement %
+                      </div>
+                    </div>
+                </td>
+                <form action="/Projet/Details">
+                    <input type="hidden" name="idprojet" value="@v.Id">
+                    <td><input type="submit" value="details"></td>
+                </form>
+                <form action="/Resultat/VersOccurenceResultat">
+                    <input type="hidden" name="idprojet" value="@v.Id">
+                    <td><input type="submit" value="ajout resultat"></td>
+                </form>
+            </tr>
+        }
+    </tbody>
+</table>
