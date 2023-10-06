@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\RealGitAnae\\RealAnaeProject\\AnaeLogiciel\\AnaeLogiciel.csproj": {}
+    "D:\\SoutenanceBro\\soutenance1659\\AnaeLogiciel\\AnaeLogiciel.csproj": {}
   },
   "projects": {
-    "D:\\RealGitAnae\\RealAnaeProject\\AnaeLogiciel\\AnaeLogiciel.csproj": {
+    "D:\\SoutenanceBro\\soutenance1659\\AnaeLogiciel\\AnaeLogiciel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\RealGitAnae\\RealAnaeProject\\AnaeLogiciel\\AnaeLogiciel.csproj",
+        "projectUniqueName": "D:\\SoutenanceBro\\soutenance1659\\AnaeLogiciel\\AnaeLogiciel.csproj",
         "projectName": "AnaeLogiciel",
-        "projectPath": "D:\\RealGitAnae\\RealAnaeProject\\AnaeLogiciel\\AnaeLogiciel.csproj",
+        "projectPath": "D:\\SoutenanceBro\\soutenance1659\\AnaeLogiciel\\AnaeLogiciel.csproj",
         "packagesPath": "C:\\Users\\STEVEN\\.nuget\\packages\\",
-        "outputPath": "D:\\RealGitAnae\\RealAnaeProject\\AnaeLogiciel\\obj\\",
+        "outputPath": "D:\\SoutenanceBro\\soutenance1659\\AnaeLogiciel\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\STEVEN\\AppData\\Roaming\\NuGet\\NuGet.Config"
