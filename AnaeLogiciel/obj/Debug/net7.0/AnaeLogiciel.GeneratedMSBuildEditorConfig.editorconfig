@@ -547,3 +547,7 @@ build_metadata.AdditionalFiles.CssScope =
 [D:/SoutenanceBro/soutenance1659/AnaeLogiciel/Views/Shared/_LayoutGlobalProject.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRHbG9iYWxQcm9qZWN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = b-1lt5k2oi89
+
+[D:/SoutenanceBro/soutenance1659/AnaeLogiciel/Views/Shared/_LayoutTechnicien.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRUZWNobmljaWVuLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = b-gmo0sv4p10

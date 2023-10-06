@@ -25,7 +25,7 @@ public class BackOfficeActiviteController : Controller
         return View("~/Views/RapportIndicateurActivite/Insertion.cshtml");
     }
 
-    public void Create(int idtechnicien, int idsiteactivite, int idindicateur, string quantite, DateOnly dateaction)
+    public IActionResult Create(int idtechnicien, int idsiteactivite, int idindicateur, string quantite, DateOnly dateaction)
     {
         RapportIndicateurActivite ri = new RapportIndicateurActivite()
         {
@@ -37,6 +37,7 @@ public class BackOfficeActiviteController : Controller
         };
         _context.Add(ri);
         _context.SaveChanges();
+        return RedirectToAction("VersDetailsSiteActivite", "SiteActivite", new { idsiteactivite = idsiteactivite });
     }
 
     public IActionResult VersListeRapportActivite(int idsiteactivite)

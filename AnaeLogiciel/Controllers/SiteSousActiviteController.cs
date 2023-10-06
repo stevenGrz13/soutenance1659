@@ -47,12 +47,12 @@ public class SiteSousActiviteController : Controller
             .Include(a => a.Technicien)
             .Where(a => a.IdSiteSousActivite == idsitesousactivite)
             .ToList();
-        SiteActivite st = _context.SiteActivite
+        SiteSousActivite st = _context.SiteSousActivite
             .First(a => a.Id == idsitesousactivite);
-        List<OccurenceActiviteIndicateur> liste = _context
-            .OccurenceActiviteIndicateur
+        List<OccurenceSousActiviteIndicateur> liste = _context
+            .OccurenceSousActiviteIndicateur
             .Include(a => a.TypeIndicateur)
-            .Where(a => a.IdOccurenceActivite == st.IdOccurenceActivite)
+            .Where(a => a.IdOccurenceSousActivite == st.IdOccurenceSousActivite)
             .ToList();
         ViewData["listeindicateur"] = liste;
         int idpprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
@@ -61,11 +61,11 @@ public class SiteSousActiviteController : Controller
             .TechnicienProjet
             .Include(a => a.Technicien)
             .Where(a => a.IdProjet == idpprojet).ToList();
-        ViewBag.idsitesousactivite = idsitesousactivite;
+        ViewBag.idoccurencesousactivite = st.IdOccurenceSousActivite;
         return View("~/Views/SiteSousActivite/Details.cshtml");
     }
 
-    public void CreateWithIndicateur(int idsitesousactivite, int idindicateur, int idtechnicien, string target)
+    public IActionResult CreateWithIndicateur(int idsitesousactivite, int idindicateur, int idtechnicien, string target)
     {
         ViewData["indicateurtechniciensitesousactivite"] = _context.IndicateurTechnicienSiteSousActivite
             .Include(a => a.TypeIndicateur)
@@ -81,21 +81,6 @@ public class SiteSousActiviteController : Controller
         };
         _context.Add(ic);
         _context.SaveChangesAsync();
-        // SiteSousActivite st = _context.SiteSousActivite
-        //     .First(a => a.Id == idsitesousactivite);
-        // List<OccurenceSousActiviteIndicateur> liste = _context
-        //     .OccurenceSousActiviteIndicateur
-        //     .Include(a => a.TypeIndicateur)
-        //     .Where(a => a.IdOccurenceSousActivite == st.IdOccurenceSousActivite)
-        //     .ToList();
-        // ViewData["listeindicateur"] = liste;
-        // int idpprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
-        // ViewBag.idsitesousactivite = idsitesousactivite;
-        // ViewData["listetechnicien"] = _context
-        //     .TechnicienProjet
-        //     .Include(a => a.Technicien)
-        //     .Where(a => a.IdProjet == idpprojet).ToList();
-        // ViewBag.idsiteactivite = idsitesousactivite;
-        // return View("~/Views/SiteSousActivite/Details.cshtml");
+        return RedirectToAction("VersDetailsSiteSousActivite", new { idsitesousactivite = idsitesousactivite });
     }
 }

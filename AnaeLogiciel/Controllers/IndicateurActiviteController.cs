@@ -31,19 +31,6 @@ public class IndicateurActiviteController : Controller
         };
         _context.Add(os);
         _context.SaveChanges();
-        OccurenceActivite oc = _context.OccurenceActivite
-            .Include(a => a.Activite)
-            .First(a => a.Id == idoccurenceactivite);
-        List<OccurenceActiviteIndicateur> liste = _context.OccurenceActiviteIndicateur
-            .Include(a => a.TypeIndicateur)
-            .Where(a => a.IdOccurenceActivite == idoccurenceactivite).ToList();
-        ViewData["listeoccurenceactiviteindicateur"] = liste;
-        ViewData["occurenceactivite"] = oc;
-        ViewData["listesiteoccurenceactivite"] = _context.SiteActivite
-            .Include(a => a.Commune)
-            .Include(a => a.Region)
-            .Include(a => a.District)
-            .Where(a => a.IdOccurenceActivite == idoccurenceactivite).ToList();
         return RedirectToAction("Details", "OccurenceActivite", new { idoccurenceactivite = idoccurenceactivite });
     }
 }

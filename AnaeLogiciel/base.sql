@@ -1,5 +1,5 @@
-create database anae;
-\c anae
+create database anaesoutenance;
+\c anaesoutenance
 
 drop table district cascade;
 drop table region cascade;
