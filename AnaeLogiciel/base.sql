@@ -527,7 +527,7 @@ join rapportindicateuractivite r on s.id = r.idsiteactivite;
 
 select * from VCalculStatHommeFemme where idprojet=1;
 
-
+select * from projet 
 
 
 

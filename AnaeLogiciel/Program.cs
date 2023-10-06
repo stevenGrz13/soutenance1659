@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using AnaeLogiciel.Data;
 using AnaeLogiciel.Models;
 using AnaeLogiciel.Models.Interface;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 

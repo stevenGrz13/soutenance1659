@@ -23,7 +23,13 @@
         {
             <tr>
                 <td>@v.Activite.Nom</td>
-                <td>@v.Avancement %</td>
+                <td>
+                    <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar" style="width:@v.Avancement%" aria-valuenow="@v.Avancement" aria-valuemin="0" aria-valuemax="100">
+                            @v.Avancement %
+                        </div>
+                    </div>
+                </td>
                 <td>
                     <form action="/OccurenceActivite/Details">
                         <input type="hidden" name="idoccurenceactivite" value="@v.Id">

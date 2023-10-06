@@ -33,3 +33,9 @@
         <li>Id: @sousactivite.Id, IdOccurenceActivite: @sousactivite.IdOccurenceActivite, IdSousActivite: @sousactivite.IdSousActivite, Budget: @sousactivite.Budget, DateDebut: @sousactivite.DateDebut, DateFin: @sousactivite.DateFin, Avancement: @sousactivite.Avancement</li>
     }
 </ul>
+
+<form action="/ExportPDF/GeneratePdf/">
+    <input type="hidden" name="activite" value="">
+    <input type="hidden" name="resultat" value="">
+    <button type="submit">Generer le PDF</button>
+</form>

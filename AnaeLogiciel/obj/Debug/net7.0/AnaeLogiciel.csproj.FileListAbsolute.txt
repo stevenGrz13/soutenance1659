@@ -1569,3 +1569,13 @@ D:\SoutenanceBro\soutenance1659\AnaeLogiciel\obj\Debug\net7.0\AnaeLogiciel.pdb
 D:\SoutenanceBro\soutenance1659\AnaeLogiciel\obj\Debug\net7.0\AnaeLogiciel.genruntimeconfig.cache
 D:\SoutenanceBro\soutenance1659\AnaeLogiciel\obj\Debug\net7.0\ref\AnaeLogiciel.dll
 D:\SoutenanceBro\soutenance1659\AnaeLogiciel\obj\Debug\net7.0\scopedcss\Views\Shared\_LayoutTechnicien.cshtml.rz.scp.css
+D:\SoutenanceBro\soutenance1659\AnaeLogiciel\bin\Debug\net7.0\BouncyCastle.Crypto.dll
+D:\SoutenanceBro\soutenance1659\AnaeLogiciel\bin\Debug\net7.0\DinkToPdf.dll
+D:\SoutenanceBro\soutenance1659\AnaeLogiciel\bin\Debug\net7.0\itextsharp.dll
+D:\SoutenanceBro\soutenance1659\AnaeLogiciel\bin\Debug\net7.0\GrapeCity.Documents.Html.dll
+D:\SoutenanceBro\soutenance1659\AnaeLogiciel\bin\Debug\net7.0\GrapeCity.Documents.Imaging.dll
+D:\SoutenanceBro\soutenance1659\AnaeLogiciel\bin\Debug\net7.0\GrapeCity.Documents.Pdf.dll
+D:\SoutenanceBro\soutenance1659\AnaeLogiciel\bin\Debug\net7.0\WkHtmlToPdf.dll
+D:\SoutenanceBro\soutenance1659\AnaeLogiciel\bin\Debug\net7.0\ja\GrapeCity.Documents.Html.resources.dll
+D:\SoutenanceBro\soutenance1659\AnaeLogiciel\bin\Debug\net7.0\ja\GrapeCity.Documents.Imaging.resources.dll
+D:\SoutenanceBro\soutenance1659\AnaeLogiciel\bin\Debug\net7.0\ja\GrapeCity.Documents.Pdf.resources.dll

@@ -1,6 +1,8 @@
-﻿using System.Reflection.Metadata;
+﻿using System.Net.Mime;
+using System.Reflection.Metadata;
 using AnaeLogiciel.Data;
 using AnaeLogiciel.Models;
+using GrapeCity.Documents.Html;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +11,7 @@ namespace AnaeLogiciel.Controllers;
 public class ExportPDFController : Controller
 {
     private readonly ApplicationDbContext _context;
-
+    
     public ExportPDFController(ApplicationDbContext context)
     {
         _context = context;
@@ -20,31 +22,50 @@ public class ExportPDFController : Controller
         return View("~/Views/ExportPDF/Choice.cshtml");
     }
     
-    public string nomResultatById(int id)
-    {
-        return _context.OccurenceResultat
-            .Include(a => a.Resultat)   
-            .First(a => a.IdResultat == id)
-            .Resultat
-            .Nom;
-    }
 
-    public string nomActiviteById(int id)
+    public async Task<IActionResult> GeneratePdf(int? resultat, int? activite, int? sousactivite)
     {
-        return _context.OccurenceActivite
-            .Include(a => a.Activite)
-            .First(a => a.Id == id)
-            .Activite
-            .Nom;
-    }
+        string value = "VersMainPage?";
+        if (resultat != null)
+        {
+            value += "resultat="+resultat;
+        }
 
-    public string nomSousActiviteById(int id)
-    {
-        return _context.OccurenceSousActivite
-            .Include(a => a.SousActivite)
-            .First(a => a.Id == id)
-            .SousActivite
-            .Nom;
+        if (activite != null)
+        {
+            value += "&activite=" + activite;
+        }
+
+        if (sousactivite != null)
+        {
+            value += "&sousactivite=" + sousactivite;
+        }
+        var tmp = Path.GetTempFileName();
+
+        var req = HttpContext.Request;
+
+        var uri = new Uri($"{req.Scheme}://{req.Host}{req.PathBase}/ExportPDF/"+value);
+
+        var browserPath = BrowserFetcher.GetSystemChromePath();
+
+        using var browser = new GcHtmlBrowser(browserPath);
+
+        using var htmlPage = browser.NewPage(uri);
+
+        PdfOptions pdfOptions = new PdfOptions()
+        {
+            PageRanges = "1-100",
+            Margins = new PdfMargins(0.2f),
+            Landscape = false,
+            PreferCSSPageSize = true
+        };
+
+        htmlPage.SaveAsPdf(tmp, pdfOptions);
+        var stream = new MemoryStream();
+        using (var ts = System.IO.File.OpenRead(tmp))
+            ts.CopyTo(stream);
+        System.IO.File.Delete(tmp);
+        return File(stream.ToArray(), MediaTypeNames.Application.Pdf, "document.pdf");
     }
 
     public IActionResult VersMainPage(int resultat, int activite, int sousactivite, int budgetresultat, int budgetactivite, int budgetsousactivite)

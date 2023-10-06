@@ -3,6 +3,7 @@ using System.Net.Mail;
 using System.Security.Cryptography;
 using AnaeLogiciel.Controllers;
 using AnaeLogiciel.Models;
+using Azure;
 using SQLitePCL;
 
 namespace AnaeLogiciel.Fonction;
@@ -74,20 +75,6 @@ public class Fonction
         // La période de réalisation est valide si elle est contenue dans la période prévue
         // ou si elle se chevauche partiellement avec la période prévue
         return contenuDansPeriodePrevue || chevauchementPartiel;
-    }
-
-    
-    public static bool IsNumeric(string input)
-    {
-        try
-        {
-            double value = double.Parse(input);
-            return true;
-        }
-        catch (FormatException)
-        {
-            return false;
-        }
     }
     
     public static string ImportPhoto(IFormFile imageFile, string path, string nomfichier, IWebHostEnvironment webHostEnvironment)

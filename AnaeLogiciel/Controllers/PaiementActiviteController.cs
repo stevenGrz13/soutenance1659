@@ -104,7 +104,7 @@ public class PaiementActiviteController : Controller
         {
             messageerreur = "attention budget deja depassee";
         }
-
+        
         ViewBag.messageerreur = messageerreur;
         ViewBag.total = total;
         ViewBag.budget = os.Budget;

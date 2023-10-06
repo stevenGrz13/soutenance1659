@@ -59,4 +59,16 @@ public class StatistiqueController : Controller
         ViewData["pourcentage"] = p;
         return View("~/Views/Statistique/StatistiqueHommeFemme.cshtml");
     }
+
+    public IActionResult VersStatBudgetActivite(double budget, double reste, double depense)
+    {
+        ArgentOccurenceActivite argent = new ArgentOccurenceActivite()
+        {
+            Budget = (int) budget,
+            Reste = (int) reste,
+            Depense = (int) depense
+        };
+        ViewData["argent"] = argent;
+        return View("~/Views/Statistique/StatistiqueBudgetActivite.cshtml");
+    }
 }
