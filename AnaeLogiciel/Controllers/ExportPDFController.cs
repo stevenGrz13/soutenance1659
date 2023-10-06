@@ -45,7 +45,7 @@ public class ExportPDFController : Controller
         var req = HttpContext.Request;
 
         var uri = new Uri($"{req.Scheme}://{req.Host}{req.PathBase}/ExportPDF/"+value);
-
+        
         var browserPath = BrowserFetcher.GetSystemChromePath();
 
         using var browser = new GcHtmlBrowser(browserPath);
@@ -67,48 +67,80 @@ public class ExportPDFController : Controller
         System.IO.File.Delete(tmp);
         return File(stream.ToArray(), MediaTypeNames.Application.Pdf, "document.pdf");
     }
-
-    public IActionResult VersMainPage(int resultat, int activite, int sousactivite, int budgetresultat, int budgetactivite, int budgetsousactivite)
+    
+    public IActionResult VersMainPage(int resultat, int budgetresultat, int activite, int budgetactivite, int sousactivite, int budgetsousactivite)
     {
-        int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
-        List<OccurenceResultat> resultats = new List<OccurenceResultat>();
-        List<OccurenceActivite> listeoa = new List<OccurenceActivite>();
-        List<OccurenceSousActivite> listeosa = new List<OccurenceSousActivite>();
-        
-        if (resultat == 1)
-        {
-            resultats = _context.OccurenceResultat
-                .Where(a => a.IdProjet == idprojet)
-                .ToList();
-        }
+    int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
+    List<OccurenceResultat> listeResultats = new List<OccurenceResultat>();
 
-        if (activite == 1)
+    if (resultat == 1)
+    {
+        var resultatsFromDb = _context.OccurenceResultat
+            .Where(a => a.IdProjet == idprojet)
+            .ToList();
+
+        foreach (var resultatDb in resultatsFromDb)
         {
-            foreach (var v in resultats)
+            var resultatModel = new OccurenceResultat
             {
-                List<OccurenceActivite> listeoccurenceactivite = _context.OccurenceActivite
-                    .Where(a => a.IdOccurenceResultat == v.Id)
-                    .OrderBy(a => a.IdOccurenceResultat)
+                Id = resultatDb.Id,
+                IdProjet = resultatDb.IdProjet,
+                IdResultat = resultatDb.IdResultat,
+                Avancement = resultatDb.Avancement,
+                ListeOccurenceActivites = new List<OccurenceActivite>()
+            };
+
+            if (activite == 1)
+            {
+                var activitesFromDb = _context.OccurenceActivite
+                    .Where(a => a.IdOccurenceResultat == resultatDb.Id)
                     .ToList();
-                listeoa.AddRange(listeoccurenceactivite);
-                if (sousactivite == 1)
+
+                foreach (var activiteDb in activitesFromDb)
                 {
-                    foreach (var z in listeoccurenceactivite)
+                    var activiteModel = new OccurenceActivite
                     {
-                        List<OccurenceSousActivite> listeoccurencesousactivite = _context
-                            .OccurenceSousActivite
-                            .Where(a => a.IdOccurenceActivite == z.Id)
-                            .OrderBy(a => a.IdOccurenceActivite)
+                        Id = activiteDb.Id,
+                        IdOccurenceResultat = activiteDb.IdOccurenceResultat,
+                        IdActivite = activiteDb.IdActivite,
+                        Budget = activiteDb.Budget,
+                        DateDebut = activiteDb.DateDebut,
+                        DateFin = activiteDb.DateFin,
+                        Avancement = activiteDb.Avancement,
+                        ListeOccurenceSousActivites = new List<OccurenceSousActivite>()
+                    };
+
+                    if (sousactivite == 1)
+                    {
+                        var sousActivitesFromDb = _context.OccurenceSousActivite
+                            .Where(s => s.IdOccurenceActivite == activiteDb.Id)
                             .ToList();
-                        listeosa.AddRange(listeosa);
+
+                        foreach (var sousActiviteDb in sousActivitesFromDb)
+                        {
+                            var sousActiviteModel = new OccurenceSousActivite
+                            {
+                                Id = sousActiviteDb.Id,
+                                IdOccurenceActivite = sousActiviteDb.IdOccurenceActivite,
+                                IdSousActivite = sousActiviteDb.IdSousActivite,
+                                Budget = sousActiviteDb.Budget,
+                                DateDebut = sousActiviteDb.DateDebut,
+                                DateFin = sousActiviteDb.DateFin,
+                                Avancement = sousActiviteDb.Avancement
+                            };
+
+                            activiteModel.ListeOccurenceSousActivites.Add(sousActiviteModel);
+                        }
                     }
+
+                    resultatModel.ListeOccurenceActivites.Add(activiteModel);
                 }
             }
-        }
 
-        ViewData["listeoccurenceresultat"] = resultats;
-        ViewData["listeoccurenceactivite"] = listeoa;
-        ViewData["listeoccurencesousactivite"] = listeosa;
-        return View("MainPage");
+            listeResultats.Add(resultatModel);
+        }
     }
+    return View("MainPage", listeResultats);
+}
+
 }
